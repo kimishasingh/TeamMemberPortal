@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <section>
+                <header class="header">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form name="empForm">
+                                <table>
+                                    <tr>
+                                        <th colspan="2">Add Employee</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td><input id="name" name="name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fun Fact:</td>
+                                        <td><input id="funFact" name="funFact"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"> <button type="button" (click)="createEmployee()"
+                                                class="btn btn-primary">Submit</button></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </header>
+            </section>
+            <section class="main">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Fun Fact</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of employees">
+                            <th scope="row">{{employee.id}}</th>
+                            <td>{{employee.name}}</td>
+                            <td>{{employee.funFact}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger"
+                                    (click)="deleteEmployee(employee)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>

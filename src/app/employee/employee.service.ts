@@ -34,15 +34,15 @@ export class EmployeeService {
       .catch(this.handleError);
   }
 
-  searchByName(searchValue: string): Promise<Array<Employee>> {
-    return this.http.get(this.apiUrl+"/search/name/"+searchValue)
+  searchByName(searchValue: string, matchType: string): Promise<Array<Employee>> {
+    return this.http.get(this.apiUrl+"/search/name/"+searchValue + "?matchType="+matchType)
       .toPromise()
       .then(response => response.json() as Employee[])
       .catch(this.handleError);
   }
 
-  openSearch(searchValue: string): Promise<Array<Employee>> {
-    return this.http.get(this.apiUrl+"/search/any/"+searchValue)
+  openSearch(searchValue: string, matchType: string): Promise<Array<Employee>> {
+    return this.http.get(this.apiUrl+"/search/any/"+searchValue + "?matchType="+matchType)
       .toPromise()
       .then(response => response.json() as Employee[])
       .catch(this.handleError);

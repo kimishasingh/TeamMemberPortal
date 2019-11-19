@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class AddEmployeeComponent implements OnInit {
 
+  showAlert : boolean = false;
+
   constructor(private router: Router, private employeeService: EmployeeService) { }
 
   ngOnInit() {
@@ -23,7 +25,10 @@ export class AddEmployeeComponent implements OnInit {
     let employee = new Employee(name, funFact, photo);
     this.employeeService.createEmployee(employee).then(
       employees => {
-        console.log(employees);
+        (<HTMLInputElement>document.getElementById('name')).value = '';
+        (<HTMLInputElement>document.getElementById('funFact')).value = '';
+        (<HTMLInputElement>document.getElementById('photo')).value = '';
+        this.showAlert = true;
       },
       err => {
         console.log(err);

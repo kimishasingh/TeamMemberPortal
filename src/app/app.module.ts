@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { EmployeeModule } from './employee/employee.module';
 import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
 import { EmployeeRoutingModule } from './employee/employee-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -20,8 +19,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     BrowserModule,
     FormsModule,
     EmployeeRoutingModule,
-    HttpModule,
-    EmployeeModule
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,12 @@
         <label for="searchBox" class="col-sm-1 col-form-label">Search:</label>
         <div class="col-sm-3">
             <input type="text" class="form-control" id="searchBox" name="searchBox">
+            <label class="radio-inline">
+                <input type="radio" name="matchType" value="exact" checked>Exact Match
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="matchType" value="contained">Contained Match
+            </label>
         </div>
         <div class="col-sm-4 btn-toolbar">
             <input type="button" class="btn btn-primary" id="searchByNameBtn" name="searchByNameBtn"
@@ -12,10 +18,14 @@
                 (click)="openSearch()">
             <input type="button" class="btn btn-primary" id="showAllBtn" name="showAllBtn" value="Show All"
                 (click)="getAllEmployees()">
+            <input type="button" class="btn btn-link" id="clearAllBtn" name="clearAllBtn" value="Clear All"
+                (click)="clearAllEmployees()" *ngIf="employees !== null">
         </div>
     </div>
 
-    <section class="main" *ngIf="employees">
+    <label *ngIf="showNoResultsMessage"><i>No team members matched your search.</i></label>
+
+    <section class="main" *ngIf="employees !== null">
         <table class="table">
             <thead>
                 <tr>

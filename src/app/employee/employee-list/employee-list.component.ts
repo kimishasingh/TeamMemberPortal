@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class EmployeeListComponent implements OnInit {
 
-  private employees: Employee[];
+  private employees: Employee[] = null;
+  private showNoResultsMessage: boolean = false;
 
   constructor(private router: Router, private employeeService: EmployeeService) { }
 
@@ -21,6 +22,7 @@ export class EmployeeListComponent implements OnInit {
   getAllEmployees() {
     this.employeeService.findAll().then(
       employees => {
+        this.showNoResultsMessage = false;
         this.employees = employees;
       },
       err => {
@@ -44,12 +46,15 @@ export class EmployeeListComponent implements OnInit {
 
   searchByName() {
     let searchValue = (<HTMLInputElement>document.getElementById('searchBox')).value;
-    this.employeeService.searchByName(searchValue).then(
+    let matchType = (<HTMLInputElement>document.querySelector("input[name='matchType']:checked")).value;
+    this.employeeService.searchByName(searchValue, matchType).then(
       employees => {
         if (employees.length > 0) {
+          this.showNoResultsMessage = false;
           this.employees = employees;
         } else {
-          employees = null;
+          this.showNoResultsMessage = true;
+          this.employees = null;
         }
       },
       err => {
@@ -60,17 +65,26 @@ export class EmployeeListComponent implements OnInit {
 
   openSearch() {
     let searchValue = (<HTMLInputElement>document.getElementById('searchBox')).value;
-    this.employeeService.openSearch(searchValue).then(
+    let matchType = (<HTMLInputElement>document.querySelector("input[name='matchType']:checked")).value;
+    this.employeeService.openSearch(searchValue, matchType).then(
       employees => {
         if (employees.length > 0) {
+          this.showNoResultsMessage = false;
           this.employees = employees;
         } else {
-          employees = null;
+          this.showNoResultsMessage = true;
+          this.employees = null;
         }
       },
       err => {
         console.log(err);
       }
     );
+  }
+
+  clearAllEmployees() {
+    this.showNoResultsMessage = false;
+    this.employees = null;
+    (<HTMLInputElement> document.getElementById('searchBox')).value = '';
   }
 }

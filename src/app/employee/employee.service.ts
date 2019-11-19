@@ -34,6 +34,20 @@ export class EmployeeService {
       .catch(this.handleError);
   }
 
+  searchByName(searchValue: string): Promise<Array<Employee>> {
+    return this.http.get(this.apiUrl+"/search/name/"+searchValue)
+      .toPromise()
+      .then(response => response.json() as Employee[])
+      .catch(this.handleError);
+  }
+
+  openSearch(searchValue: string): Promise<Array<Employee>> {
+    return this.http.get(this.apiUrl+"/search/any/"+searchValue)
+      .toPromise()
+      .then(response => response.json() as Employee[])
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<Array<any>> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);

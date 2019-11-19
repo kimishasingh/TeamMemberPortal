@@ -16,7 +16,6 @@ export class EmployeeListComponent implements OnInit {
   constructor(private router: Router, private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.getAllEmployees();
   }
 
   getAllEmployees() {
@@ -30,13 +29,12 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  createEmployee() {
-    let name = (<HTMLInputElement>document.getElementById('name')).value;
-    let funFact = (<HTMLInputElement>document.getElementById('funFact')).value;
-    let employee = new Employee(name, funFact);
-    this.employeeService.createEmployee(employee).then(
+  deleteEmployee(employee: Employee) {
+    this.employeeService.deleteEmployeeById(employee.id).then(
       employees => {
-        this.employees.push(employees);
+        this.employees = this.employees.filter(function (emp) {
+          return emp.id != employee.id;
+        });
       },
       err => {
         console.log(err);
@@ -44,12 +42,31 @@ export class EmployeeListComponent implements OnInit {
     );
   }
 
-  deleteEmployee(employee: Employee) {
-    this.employeeService.deleteEmployeeById(employee.id).then(
+  searchByName() {
+    let searchValue = (<HTMLInputElement>document.getElementById('searchBox')).value;
+    this.employeeService.searchByName(searchValue).then(
       employees => {
-        this.employees = this.employees.filter(function (emp) {
-          return emp.id != employee.id;
-        });
+        if (employees.length > 0) {
+          this.employees = employees;
+        } else {
+          employees = null;
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  openSearch() {
+    let searchValue = (<HTMLInputElement>document.getElementById('searchBox')).value;
+    this.employeeService.openSearch(searchValue).then(
+      employees => {
+        if (employees.length > 0) {
+          this.employees = employees;
+        } else {
+          employees = null;
+        }
       },
       err => {
         console.log(err);

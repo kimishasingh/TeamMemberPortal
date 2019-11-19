@@ -1,6 +1,8 @@
-<div class="col-12">
-    <h3>Team Member Portal</h3>
-    <hr>
-</div>
+<app-header (menuOptionSelected)="onNavigate($event)"></app-header>
 
-<app-employee-list></app-employee-list>
+<div class="row">
+    <div class="col-md-12">
+        <app-employee-list *ngIf="selectedMenuOption === 'search'"></app-employee-list>
+        <app-add-employee *ngIf="selectedMenuOption === 'add'"></app-add-employee>
+    </div>
+</div>

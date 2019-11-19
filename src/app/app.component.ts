@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'team-member-portal-project';
+  selectedMenuOption: string = 'search';
+
+  onNavigate(selectedOption: string) {
+    this.selectedMenuOption = selectedOption;
+  }
 }
